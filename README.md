@@ -80,25 +80,4 @@ core/settings.py    settings file and app data folder
 core/winstartup.py  "Start with Windows" Run-key entry
 ```
 
-## Known limitations
 
-- The device has ~3.4 MB free storage, so everything streams from the PC; Jungle Leopard Display must be running.
-- Jungle Leopard re-encodes video to HLS on every play. Pre-sizing to 1920×462 keeps that cheap but can't disable it.
-- Exported Jungle Leopard theme packages (`.ht`) are encrypted, so playlists are handed over as folders, not one-click themes. (Saved themes in `%APPDATA%\Jungle_Leopard_Display\themes` are plain JSON, which is what *Theme widgets…* edits.)
-- Changing a playlist means re-selecting the folder's files in Jungle Leopard's Media component.
-- The crop band is vertical only (for tall sources it moves horizontally); there is no zoom.
-
-## Testing on the real screen
-
-Record pass/fail:
-
-1. `python app.py` — the log shows the Jungle Leopard `ffmpeg.exe` path.
-2. Rescan — roughly 43 Video, ~69 Scene (still), 1 GIF, ~13 unsupported items (counts depend on your workshop).
-3. Build a playlist **Test** with a 4K video, a Scene still and a GIF, interval 10 s; note the conversion time.
-4. In Jungle Leopard, build the full-screen Media theme from `playlists\Test\` with Slideshow on:
-   - [ ] stills are full-bleed, not stretched
-   - [ ] videos play smoothly; the crop band is where the preview showed
-   - [ ] slideshow advances every 10 s (note behaviour when a video is longer/shorter than the interval)
-   - [ ] images and videos mix in one Media component (if not: separate themes + **Cycle Interval**)
-5. Task Manager while playing: note CPU/RAM of *Jungle Leopard Display* and its ffmpeg child.
-6. Tick **Start with Windows**, reboot, check `%APPDATA%\JLMediaManager\sync.log`.
